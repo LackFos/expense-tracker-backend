@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\IncomeSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
+            'id' => '9bb41db5-6965-426e-a7be-a773c8e1eaa7',
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $this->call(IncomeSeeder::class);
     }
 }
