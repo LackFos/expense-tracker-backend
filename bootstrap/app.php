@@ -22,13 +22,4 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
-    ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            if ($request->is('api/*')) {
-                return response()->json([
-                    'msg' => 'Record not found.',
-                    'payload' => [],
-                ], 404, [], JSON_FORCE_OBJECT);
-            }
-        });
-    })->create();
+    ->withExceptions(function (Exceptions $exceptions) {})->create();

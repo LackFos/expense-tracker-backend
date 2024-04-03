@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\IncomeRequest;
 
-class IncomeController extends Controller
+class ExpenseController extends Controller
 {
     public function all(Request $request)
     {

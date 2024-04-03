@@ -13,5 +13,11 @@ class Helpers {
     {
         $errorCode = 201;
         return response()->json(['msg' => $msg, 'payload' => $payload], $errorCode);
-    }   
+    } 
+    
+    public static function returnNotFoundError($msg)
+    {
+        $errorCode = 404;
+        return response()->json(['msg' => $msg, 'payload' => []], $errorCode, [], JSON_FORCE_OBJECT);
+    }
 }
