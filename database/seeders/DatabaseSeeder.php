@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             'id' => '9bb41db5-6965-426e-a7be-a773c8e1eaa7',
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password'=> 'test'            
         ]);
 
         $this->call(IncomeSeeder::class);
