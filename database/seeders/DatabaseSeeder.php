@@ -14,13 +14,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            'id' => '9bb41db5-6965-426e-a7be-a773c8e1eaa7',
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password'=> 'test'            
+            'name' => 'user1',
+            'email' => 'user1@example.com',
+            'password'=> 'user1'            
         ]);
 
-        $this->call(IncomeSeeder::class);
-        $this->call(ExpenseSeeder::class);
+        User::factory()->create([
+            'name' => 'user2',
+            'email' => 'user2@example.com',
+            'password'=> 'user2'            
+        ]);
+
+        // $this->call(IncomeSeeder::class);
+        // $this->call(ExpenseSeeder::class);
     }
 }

@@ -12,13 +12,20 @@ class ExpenseController extends Controller
 {
     public function all(Request $request)
     {
-        $expenses = Expense::all();
+        $userId = auth()->id();
+        $expenses = Expense::where('user_id', $userId)->get();
+
+        if($expenses->isEmpty()) {
+            return Helpers::throwNotFoundError('Expenses Not Found');
+        }
+
         return Helpers::returnOkResponse('Expenses Found', $expenses);
     }
 
     public function detail(Request $request, string $id)
     {
-        $expense = Expense::find($id);
+        $userId = auth()->id();
+        $expense = Expense::where(['id' => $id, 'user_id' => $userId])->first();
         
         if(!$expense) {
             return Helpers::throwNotFoundError('Expense not found');
@@ -29,7 +36,7 @@ class ExpenseController extends Controller
 
     public function create(ExpenseRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validatedWithUser();
 
         $newExpense = Expense::create($validated);
         
@@ -40,7 +47,8 @@ class ExpenseController extends Controller
     {
         $validated = $request->validated();
 
-        $expense = Expense::find($id);
+        $userId = auth()->id();
+        $expense = Expense::where(['id' => $id, 'user_id' => $userId])->first();
         
         if(!$expense) {
             return Helpers::throwNotFoundError('Expense not found');
@@ -53,7 +61,8 @@ class ExpenseController extends Controller
 
     public function delete(Request $request, string $id)
     {
-        $expense = Expense::find($id);
+        $userId = auth()->id();
+        $expense = Expense::where(['id' => $id, 'user_id' => $userId])->first();
 
         if(!$expense) {
             return Helpers::throwNotFoundError('Expense not found');

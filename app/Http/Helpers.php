@@ -14,7 +14,11 @@ class Helpers {
     {
         return response()->json(['success' => 'true', 'message' => $message, 'data' => $data], StatusCode::CREATED);
     } 
-    
+
+    public static function throwUnauthorizedError($message) {
+        return response()->json(['success' => 'false', 'message' => $message, 'data' => []], StatusCode::UNAUTHORIZED, [], JSON_FORCE_OBJECT);
+    }
+
     public static function throwNotFoundError($message)
     {
         return response()->json(['success' => 'false', 'message' => $message, 'data' => []], StatusCode::NOT_FOUND, [], JSON_FORCE_OBJECT);

@@ -23,10 +23,21 @@ class ExpenseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required', Rule::exists('users', 'id')],
             'amount' => 'required|integer',
             'description' => 'nullable|string',
             'date' => 'required|date'
         ];
+    }
+
+    /**
+     * Get the validated data after the validation process.
+     *
+     * @return array
+     */
+    public function validatedWithUser(): array
+    {
+        $validatedData = $this->validated();
+        $validatedData['user_id'] = auth()->id();
+        return $validatedData;
     }
 }

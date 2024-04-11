@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\UserController;
 
-Route::prefix('incomes')->group(function () {
+Route::middleware('auth:sanctum')->prefix('incomes')->group(function () {
     Route::get('/', [IncomeController::class, 'all']);
     Route::get('/{id}', [IncomeController::class, 'detail']);
     
@@ -14,7 +14,7 @@ Route::prefix('incomes')->group(function () {
     Route::delete('/{id}', [IncomeController::class, 'delete']);
 });
 
-Route::prefix('expenses')->group(function () {
+Route::middleware('auth:sanctum')->prefix('expenses')->group(function () {
     Route::get('/', [ExpenseController::class, 'all']);
     Route::get('/{id}', [ExpenseController::class, 'detail']);
     
