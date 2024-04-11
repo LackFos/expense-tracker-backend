@@ -7,13 +7,14 @@ use App\Models\Income;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Http\Requests\IncomeRequest;
+use PHPUnit\TextUI\Help;
 
 class IncomeController extends Controller
 {
     public function all(Request $request)
     {
         $incomes = Income::all();
-        return response()->json($incomes, 200);
+        return Helpers::returnOkResponse('Incomes Found', $incomes);
     }
 
     public function detail(Request $request, string $id)
@@ -21,10 +22,10 @@ class IncomeController extends Controller
         $income = Income::find($id);
         
         if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+            return Helpers::throwNotFoundError('Income not found');
         }
 
-        return response()->json($income, 200);
+        return Helpers::returnOkResponse('Income Found', $income);
     }
 
     public function create(IncomeRequest $request)
@@ -33,7 +34,7 @@ class IncomeController extends Controller
 
         $newIncome = Income::create($validated);
         
-        return Helpers::returnCreatedResponse('Income created!', $newIncome);
+        return Helpers::returnCreatedResponse('Income created', $newIncome);
     }
 
     public function update(IncomeRequest $request, Income $income, string $id)
@@ -43,7 +44,7 @@ class IncomeController extends Controller
         $income = Income::find($id);
         
         if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+            return Helpers::throwNotFoundError('Income not found');
         }
 
         $income->update($validated);
@@ -56,7 +57,7 @@ class IncomeController extends Controller
         $income = Income::find($id);
 
         if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+            return Helpers::throwNotFoundError('Income not found');
         }
 
         $income->delete();

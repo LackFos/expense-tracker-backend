@@ -2,27 +2,25 @@
 
 namespace App\Http;
 
+use App\Enums\StatusCode;
+
 class Helpers {
     public static function returnOkResponse($message, $data) 
     {
-        $errorCode = 200;
-        return response()->json(['success' => 'true', 'message' => $message, 'data' => $data], $errorCode);
+        return response()->json(['success' => 'true', 'message' => $message, 'data' => $data], StatusCode::OK);
     }
 
     public static function returnCreatedResponse($message, $data) 
     {
-        $errorCode = 201;
-        return response()->json(['success' => 'true', 'message' => $message, 'data' => $data], $errorCode);
+        return response()->json(['success' => 'true', 'message' => $message, 'data' => $data], StatusCode::CREATED);
     } 
     
     public static function throwNotFoundError($message)
     {
-        $errorCode = 404;
-        return response()->json(['success' => 'false', 'message' => $message, 'data' => []], $errorCode, [], JSON_FORCE_OBJECT);
+        return response()->json(['success' => 'false', 'message' => $message, 'data' => []], StatusCode::NOT_FOUND, [], JSON_FORCE_OBJECT);
     }
 
     public static function throwInternalError() {
-        $errorCode = 500;
-        return response()->json(['success' => 'false', 'message' => 'An unexpected error occurred on the server.', 'data' => []], $errorCode, [], JSON_FORCE_OBJECT);
+        return response()->json(['success' => 'false', 'message' => 'An unexpected error occurred on the server.', 'data' => []], StatusCode::INTERNAL_SERVER_ERROR, [], JSON_FORCE_OBJECT);
     }
 }

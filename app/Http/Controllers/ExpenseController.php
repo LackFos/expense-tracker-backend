@@ -3,63 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers;
-use App\Models\Income;
+use App\Models\Expense;
+use App\Http\Requests\ExpenseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use App\Http\Requests\IncomeRequest;
 
 class ExpenseController extends Controller
 {
     public function all(Request $request)
     {
-        $incomes = Income::all();
-        return response()->json($incomes, 200);
+        $expenses = Expense::all();
+        return Helpers::returnOkResponse('Expenses Found', $expenses);
     }
 
     public function detail(Request $request, string $id)
     {
-        $income = Income::find($id);
+        $expense = Expense::find($id);
         
-        if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+        if(!$expense) {
+            return Helpers::throwNotFoundError('Expense not found');
         }
 
-        return response()->json($income, 200);
+        return Helpers::returnOkResponse('Expense Found', $expense);
     }
 
-    public function create(IncomeRequest $request)
+    public function create(ExpenseRequest $request)
     {
         $validated = $request->validated();
 
-        $newIncome = Income::create($validated);
+        $newExpense = Expense::create($validated);
         
-        return Helpers::returnCreatedResponse('Income created!', $newIncome);
+        return Helpers::returnCreatedResponse('Expense created', $newExpense);
     }
 
-    public function update(IncomeRequest $request, Income $income, string $id)
+    public function update(ExpenseRequest $request, string $id)
     {
         $validated = $request->validated();
 
-        $income = Income::find($id);
+        $expense = Expense::find($id);
         
-        if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+        if(!$expense) {
+            return Helpers::throwNotFoundError('Expense not found');
         }
 
-        $income->update($validated);
-        return Helpers::returnOkResponse('Income Updated', $income);
+        $expense->update($validated);
+        return Helpers::returnOkResponse('Expense Updated', $expense);
     }
 
 
     public function delete(Request $request, string $id)
     {
-        $income = Income::find($id);
+        $expense = Expense::find($id);
 
-        if(!$income) {
-            return Helpers::returnNotFoundError('Income not found');
+        if(!$expense) {
+            return Helpers::throwNotFoundError('Expense not found');
         }
 
-        $income->delete();
-        return Helpers::returnOkResponse('Income Deleted', $income);
+        $expense->delete();
+        return Helpers::returnOkResponse('Expense Deleted', $expense);
     }
 }
