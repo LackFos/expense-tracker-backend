@@ -25,4 +25,5 @@ Route::middleware('auth:sanctum')->prefix('expenses')->group(function () {
 
 Route::prefix('users')->group(function () {
     Route::post('/login', [UserController::class, 'login']);
+    Route::middleware('auth:sanctum')->get('/financial-report', [UserController::class, 'financialReport']);
 });
