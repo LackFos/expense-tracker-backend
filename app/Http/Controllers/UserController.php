@@ -17,6 +17,6 @@ class UserController extends Controller
             return Helpers::returnOkResponse('User logged in successfully', $user);
         }
         
-        return Helpers::throwUnauthorizedError('Unauthenticated');
+        return Helpers::throwUnauthorizedError('Invalid username or password');
     }
 }
