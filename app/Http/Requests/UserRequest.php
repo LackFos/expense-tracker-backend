@@ -22,6 +22,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => 'string|min:3',
             'email' => ['required', 'regex:/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/'],
             'password' => 'required|string'
         ];

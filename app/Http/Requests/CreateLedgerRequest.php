@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncomeRequest extends FormRequest
+class CreateLedgerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,19 +24,8 @@ class IncomeRequest extends FormRequest
         return [
             'amount' => 'required|integer',
             'description' => 'nullable|string',
+            'type' => 'required|in:expense,income',
             'date' => 'required|date'
         ];
-    }
-
-    /**
-     * Get the validated data after the validation process.
-     *
-     * @return array
-     */
-    public function validatedWithUser(): array
-    {
-        $validatedData = $this->validated();
-        $validatedData['user_id'] = auth()->id();
-        return $validatedData;
     }
 }

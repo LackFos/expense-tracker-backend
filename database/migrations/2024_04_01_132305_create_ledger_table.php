@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('incomes', function (Blueprint $table) {
+        Schema::create('ledgers', function (Blueprint $table) {
             $table->uuid('id')->unique();
             $table->foreignUuid('user_id');
             $table->integer('amount');
             $table->string('description')->nullable();
+            $table->string('type');
             $table->date('date');
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('incomes');
+        Schema::dropIfExists('ledgers');
     }
 };

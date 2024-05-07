@@ -47,4 +47,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function ledgers()
+    {
+        return $this->hasMany(Ledger::class);
+    }
+
+    public function incomes()
+    {
+        return $this->hasMany(Ledger::class)->where('type', 'income');
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(Ledger::class)->where('type', 'expense');
+    }
 }
