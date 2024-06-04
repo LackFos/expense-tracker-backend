@@ -2,16 +2,26 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
-class UpdateLedgerRequest extends FormRequest
+class VerifyEmailOtpRequest extends FormRequest
 {
+    public User $user;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        $user = auth()->user();
+
+        if($user) {
+            $this->user = $user;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -22,9 +32,7 @@ class UpdateLedgerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'required|integer',
-            'description' => 'nullable|string',
-            'date' => 'required|date'
+            'otp' => 'required|string'
         ];
     }
 }

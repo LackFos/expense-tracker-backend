@@ -6,10 +6,8 @@ use Carbon\Carbon;
 use App\Http\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Requests\CreateLedgerRequest;
-use App\Http\Requests\UpdateLedgerRequest;
+use App\Http\Requests\LedgerCreateRequest;
+use App\Http\Requests\LedgerUpdateRequest;
 
 class LedgerController extends Controller
 {
@@ -102,7 +100,7 @@ class LedgerController extends Controller
         }
     }
 
-    public function create(CreateLedgerRequest $request)
+    public function create(LedgerCreateRequest $request)
     {
        try {
             $validated = $request->validated();
@@ -117,7 +115,7 @@ class LedgerController extends Controller
         }
     }
 
-    public function update(UpdateLedgerRequest $request, string $id)
+    public function update(LedgerUpdateRequest $request, string $id)
     {
         try {
             $validated = $request->validated();

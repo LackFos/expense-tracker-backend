@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class User extends Authenticatable
 {
@@ -61,5 +63,10 @@ class User extends Authenticatable
     public function expenses()
     {
         return $this->hasMany(Ledger::class)->where('type', 'expense');
+    }
+
+    public function currentAccessToken(): PersonalAccessToken | null
+    {
+        return $this->hasOne(PersonalAccessToken::class, 'tokenable_id', 'id')->where('name', 'access_token')->first();
     }
 }

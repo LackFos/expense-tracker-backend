@@ -2,16 +2,25 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
-{
+class LedgerCreateRequest extends FormRequest
+{    
+    public User $user;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        $user = auth()->user();
+
+        if($user) {
+            $this->user = $user;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -22,9 +31,10 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string|min:3',
-            'email' => ['required', 'regex:/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/'],
-            'password' => 'required|string'
+            'amount' => 'required|integer',
+            'description' => 'nullable|string',
+            'type' => 'required|in:expense,income',
+            'date' => 'required|date'
         ];
     }
 }

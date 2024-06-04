@@ -2,18 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateLedgerRequest extends FormRequest
+class UserLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+       return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,10 +22,8 @@ class CreateLedgerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'amount' => 'required|integer',
-            'description' => 'nullable|string',
-            'type' => 'required|in:expense,income',
-            'date' => 'required|date'
+            'email' => ['required', 'exists:users,email', 'regex:/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/'],
+            'password' => 'required|string'
         ];
     }
 }
