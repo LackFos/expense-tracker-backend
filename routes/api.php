@@ -17,15 +17,16 @@ Route::middleware(['auth:sanctum', Verified::class])->prefix('ledgers')->group(f
 });
 
 Route::prefix('users')->group(function () {
-    Route::post('/register', [UserController::class, 'register']);
     Route::post('/login', [UserController::class, 'login']);
-
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/reset-password', [UserController::class, 'resetPassword']);
+    
     Route::middleware(['auth:sanctum'])->group(function () {
-        Route::post('/verify', [UserController::class, 'verifyEmailOtp']);
+        Route::post('/verify', [UserController::class, 'verifyAccount']);
     });
 });
 
-Route::middleware('auth:sanctum')->prefix('emails')->group(function () {
-    Route::post('/verification-otp', [EmailController::class, 'sendVerificationEmail']);
+Route::prefix('emails')->group(function () {
+    Route::post('/reset-password-otp', [EmailController::class, 'createSendResetPasswordOTP']);
+    Route::middleware(['auth:sanctum'])->post('/email-verification-otp', [EmailController::class, 'createSendVerificationOTP']);
 });
-

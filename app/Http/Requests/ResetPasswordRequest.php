@@ -2,26 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 
-class VerifyEmailOtpRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
-    public User $user;
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $user = auth()->user();
-
-        if($user) {
-            $this->user = $user;
-            return true;
-        } else {
-            return false;
-        }
+        return true;
     }
 
     /**
@@ -32,7 +22,9 @@ class VerifyEmailOtpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otp' => 'required|string'
+            'otp' => 'required|string|min:6|max:6',
+            'email' => 'required|email',
+            'password' => 'required|string'
         ];
     }
 }

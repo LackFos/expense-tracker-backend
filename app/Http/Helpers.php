@@ -48,6 +48,17 @@ class Helpers {
      * @param string $message The error message.
      * @return \Illuminate\Http\JsonResponse The JSON response with the error message and status code.
      */
+    public static function throwBadRequestError($message) {
+        $response = ['success' => 'false', 'message' => $message];
+        return response()->json($response, StatusCode::BAD_REQUEST);
+    }
+
+    /**
+     * Throws an unauthorized error with the given message (401).
+     *
+     * @param string $message The error message.
+     * @return \Illuminate\Http\JsonResponse The JSON response with the error message and status code.
+     */
     public static function throwUnauthorizedError($message) {
         $response = ['success' => 'false', 'message' => $message];
         return response()->json($response, StatusCode::UNAUTHORIZED);
@@ -74,6 +85,18 @@ class Helpers {
     public static function throwConflictError($message) {
         $response = ['success' => 'false', 'message' => $message];
         return response()->json($response, StatusCode::CONFLICT);
+    }
+
+
+    /**
+     * Throws an too many request with the given error message (429).
+     *
+     * @param mixed $error The error message or object.
+     * @return \Illuminate\Http\JsonResponse The JSON response with the error message and status code.
+     */
+    public static function throwTooManyRequest($message) {
+        $response = ['success' => 'false', 'message' => $message];
+        return response()->json($response, StatusCode::TOO_MANY_REQUEST);
     }
 
     /**

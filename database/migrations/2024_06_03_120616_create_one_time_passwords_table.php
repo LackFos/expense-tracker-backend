@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -15,8 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('name');
-            $table->string('otp');
+            $table->string('token');
             $table->unique(['email', 'name']);
+            $table->timestamp('expire_at')->default(Carbon::now()->addMinutes(3));
         });
     }
 
