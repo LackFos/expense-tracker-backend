@@ -13,6 +13,7 @@ class LedgerController extends Controller
 {
     public function financialReport(Request $request) {
         try {
+            /** @var User $user */
             $user = auth()->user();
 
             $currentMonthStart = Carbon::now()->startOfMonth(); 
@@ -48,6 +49,7 @@ class LedgerController extends Controller
     public function all(Request $request) 
     {
         try {
+            /** @var User $user */
             $user = auth()->user();
 
             $query = $user->ledgers()->orderByDesc('date');
@@ -105,6 +107,7 @@ class LedgerController extends Controller
        try {
             $validated = $request->validated();
 
+            /** @var User $user */
             $user = auth()->user();
 
             $transaction = $user->ledgers()->create($validated);
@@ -120,11 +123,12 @@ class LedgerController extends Controller
         try {
             $validated = $request->validated();
 
+            /** @var User $user */
             $user = auth()->user();
     
             $transaction = $user->ledgers()->where('id', $id)->first();
             
-            if($transaction->isEmpty()) {
+            if(!$transaction) {
                 return Helpers::throwNotFoundError('Transaction not found');
             }
     
@@ -140,11 +144,12 @@ class LedgerController extends Controller
     public function delete(string $id)
     {
         try {
+            /** @var User $user */
             $user = auth()->user();
 
             $transaction = $user->ledgers()->where('id', $id)->first();
     
-            if($transaction->isEmpty()) {
+            if(!$transaction) {
                 return Helpers::throwNotFoundError('Transaction not found');
             }
     

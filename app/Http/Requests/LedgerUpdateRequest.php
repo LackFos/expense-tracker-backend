@@ -4,6 +4,14 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
+
+enum LedgerType: string
+{
+    case EXPENSE = 'expense';
+    case INCOME = 'income';
+}
 
 class LedgerUpdateRequest extends FormRequest
 {
@@ -30,11 +38,10 @@ class LedgerUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-
-
         return [
             'amount' => 'required|integer',
             'description' => 'nullable|string',
+            'type' => ['required', Rule::enum(LedgerType::class)],
             'date' => 'required|date'
         ];
     }

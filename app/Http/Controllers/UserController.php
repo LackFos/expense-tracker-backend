@@ -28,9 +28,9 @@ class UserController extends Controller
             $user['access_token'] = $user->createToken('access_token')->plainTextToken;
             
             $otp = $user->generateOTP(OtpType::VERIFY_ACCOUNT);
-
+            
             $user->sendEmail(new SendOtpEmail('Verifikasi Akun - Kode OTP',  $user->name, $otp));
-
+            
             DB::commit();
 
             return Helpers::returnOkResponse('Account created', $user);
