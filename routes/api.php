@@ -4,6 +4,7 @@ use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LedgerController;
+use App\Http\Controllers\OneTimePasswordController;
 use App\Http\Middleware\Verified;
 
 Route::middleware(['auth:sanctum', Verified::class])->prefix('ledgers')->group(function () {
@@ -24,6 +25,10 @@ Route::prefix('users')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verify', [UserController::class, 'verifyAccount']);
     });
+});
+
+Route::prefix('otps')->group(function () {
+    Route::post('/verify', [OneTimePasswordController::class, 'verify']);
 });
 
 Route::prefix('emails')->group(function () {

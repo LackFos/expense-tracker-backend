@@ -12,6 +12,7 @@ use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\VerifyAccountRequest;
 use App\Mail\SendOtpEmail;
 use App\Mail\VerificationOtpEmail;
+use App\Models\OneTimePassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -89,11 +90,12 @@ class UserController extends Controller
 
             $user->email_verified_at = now();
             $user->save();
-            $otp->delete();
+
+            OneTimePassword::where('email', $user->email)->delete();
 
             DB::commit();
 
-            return Helpers::returnOkResponse('User verified', $otp);
+            return Helpers::returnOkResponse('User verified', $user);
         } catch (\Throwable $th) {
             DB::rollBack();
             return Helpers::throwInternalError($th);
@@ -120,7 +122,8 @@ class UserController extends Controller
 
             $user->password = Hash::make($validated['password']);
             $user->save();
-            $otp->delete();
+            
+            OneTimePassword::where('email', $user->email)->delete();
 
             DB::commit();
 

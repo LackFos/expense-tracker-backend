@@ -2,18 +2,18 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class OneTimePasswordVerifyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-       return true;
+        return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,8 +22,8 @@ class UserLoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required|string'
+            'email' => 'required|email|exists:one_time_passwords,email',
+            'otp' => 'required|string|min:6|max:6',
         ];
     }
 }

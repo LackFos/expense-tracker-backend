@@ -23,7 +23,7 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|unique:users,name',
-            'email' => ['required', 'unique:users,email', 'regex:/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/'],
+            'email' => 'required|email',
             'password' => 'required|string'
         ];
     }
