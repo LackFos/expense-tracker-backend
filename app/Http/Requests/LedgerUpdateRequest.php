@@ -2,16 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\LedgerType;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
-
-enum LedgerType: string
-{
-    case EXPENSE = 'expense';
-    case INCOME = 'income';
-}
 
 class LedgerUpdateRequest extends FormRequest
 {

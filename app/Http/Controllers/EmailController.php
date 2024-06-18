@@ -31,7 +31,7 @@ class EmailController extends Controller
                 return Helpers::throwTooManyRequest('You have already requested an OTP recently. Please try again in next 3 minutes');
             }
 
-            $user->sendEmail(new SendOtpEmail('Verifikasi Akun - Kode OTP',  $user->name, $otp));
+            // $user->sendEmail(new SendOtpEmail('Verifikasi Akun - Kode OTP',  $user->name, $otp));
 
             return Helpers::returnOkResponse('OTP sent, please check your email');  
         } catch (\Throwable $th) {

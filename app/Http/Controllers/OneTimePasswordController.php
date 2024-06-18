@@ -15,8 +15,8 @@ class OneTimePasswordController extends Controller
         try {
             $validated = $request->validated();
 
-            $otp = OneTimePassword::where(['email' => $validated['email'], 'name' => OtpType::RESET_PASSWORD])->first();
-            
+            $otp = OneTimePassword::where(['email' => $validated['email'], 'name' => $validated['name']])->first();
+
             if(!$otp || !Hash::check($validated['otp'], $otp->token)) {
                 return Helpers::throwUnauthorizedError('Invalid OTP');
             }
