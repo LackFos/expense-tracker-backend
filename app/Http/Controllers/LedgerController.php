@@ -75,11 +75,9 @@ class LedgerController extends Controller
  
             $ledgers = $query->get();
 
-            if($ledgers->isEmpty()) {
-                return Helpers::throwNotFoundError('Transaction not found');
-            }
+            $message = count($ledgers) > 0 ? 'Transaction found' : 'Transaction not found';
 
-            return Helpers::returnOkResponse('Transaction found', $ledgers);
+            return Helpers::returnOkResponse($message, $ledgers);
         } catch (\Throwable $th) {
             return Helpers::throwInternalError($th);
         }
