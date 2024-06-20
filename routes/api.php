@@ -13,7 +13,7 @@ Route::middleware(['auth:sanctum', Verified::class])->prefix('ledgers')->group(f
     Route::get('/{id}', [LedgerController::class, 'detail']);
     
     Route::post('/', [LedgerController::class, 'create']);
-    Route::patch('/{id}', [LedgerController::class, 'update']);
+    Route::put('/{id}', [LedgerController::class, 'update']);
     Route::delete('/{id}', [LedgerController::class, 'delete']);
 });
 
